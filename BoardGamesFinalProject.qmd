@@ -6,3 +6,28 @@ format: pdf
 ---
 
 # Set Up
+
+# Data Exploration 
+
+## Data Structure 
+```{r}
+
+str(Boardgame)
+
+```
+There are a total of **10523** observations, each representing a different board game.
+The dataset consists of **22** variables, which includes the types integer, string, and numerical. 
+The integer variables are: `game_id`, `max_players`, `max_playtime`, `min_age`, ` min_players`, `min_playtime`, `playing_time`, `year_published`, and `users_rated`.
+The character variables are: `description`, `image`, `name`, `thumbnail`, `artist`, `category`, `compilation`,``designer`, `expansion`, `family`, `mechanic`, and `publisher`. 
+The only numerical variable is `average_rating`. 
+More information on variables can be seen in the `Variable List` 
+
+## Data Summary 
+```{r}
+
+summary(Boardgame)
+
+```
+This is a basic summary of the dataset. 
+The distribution of integer and numberical variables, such as `max_playtime` and `min_players` are demonstrated with the 5-number summary and the mean. 
+For character variables, only length (which is the same as the number of observations), class, and mode (both of these show the data type) are present.
