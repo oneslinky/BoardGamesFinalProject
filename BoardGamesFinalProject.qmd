@@ -1,0 +1,8 @@
+---
+title: "Board Games and Individual Ratings"
+author: "Crystal Zhang, Lauren Grove, Nate Ren"
+date: "5-1-24"
+format: pdf
+---
+
+# Set Up
