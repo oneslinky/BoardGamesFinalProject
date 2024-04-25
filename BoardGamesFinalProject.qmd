@@ -20,20 +20,15 @@ head(board_games_data_raw)
 # Data Exploration
 First we need to have an overview of the data set as a basis of further analysis. 
 ## Data Structure
-
 ```{r}
 board_games_data <- read.csv("./board_games.csv")
 str(board_games_data)
 ```
-
 There are a total of 10523 observations, each representing a different board game. The dataset consists of 22 variables, which includes the types integer, string, and numerical. The integer variables are: game_id, max_players, max_playtime, min_age, min_players, min_playtime, playing_time, year_published, and users_rated. The character variables are: description, image, name, thumbnail, artist, category, compilation,‘designer, expansion, family, mechanic, and publisher. The only numerical variable is average_rating. More information on variables can be seen in the Variable List
-
 ## Data Summary
-
 ```{r}
 summary(board_games_data)
 ```
-
 This is a basic summary of the dataset. The distribution of integer and numberical variables, such as max_playtime and min_players are demonstrated with the 5-number summary and the mean. For character variables, only length (which is the same as the number of observations), class, and mode (both of these show the data type) are present.
 
 
@@ -113,7 +108,26 @@ This is the data dictionary for this data set
 
     -   Data Type = Integer
 
+
 # Research Questions
+## Research Question 1
+Is there a relationship between average_rating and average_playtime?
+### Variables Needed
+-   average_rating
+-   average_playtime
+### Methodology
+We need to create a new variable average_playtime using mutate with max_playtime and min_playtime and then we can create a scatter plot to visualize this data.
+## Research Question 2
+Between, playtime, number of users rated, and max players, what has the most impact on average rating.
+### Variables Needed
+-   max_playtime
+-   min_playtime
+-   users_rated
+-   max_players
+-   min_players
+-   average_rating
+### Methodology
+Utilizing ggplot and faceting function to create box plots to plot the relationship between all the variables and average_rating.
 
 
 # Cleaning Methods
