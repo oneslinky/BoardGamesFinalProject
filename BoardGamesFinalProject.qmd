@@ -153,42 +153,7 @@ This is the data dictionary for this data set
 
 
 # Research Questions
-
-## Research Question 1
-
-Is there a relationship between average_rating and average_playtime?
-
-### Variables Needed
-
--   average_rating
-
--   average_playtime
-
-### Methodology
-
-We need to create a new variable average_playtime using mutate with max_playtime and min_playtime and then we can create a scatter plot to visualize this data.
-
-## Research Question 2
-
-Between, playtime, number of users rated, and max players, what has the most impact on average rating.
-
-### Variables Needed
-
--   max_playtime
-
--   min_playtime
-
--   users_rated
-
--   max_players
-
--   min_players
-
--   average_rating
-
-### Methodology
-
-Utilizing ggplot and faceting function to create box plots to plot the relationship between all the variables and average_rating.
+The research questions we intend to answer are **for each decade what primary game category had the highest user rating** and **between `average_playtime`, number of users rated, and max player which has the greatest correlation with average rating**. To answer the first question, we will assume that the first category listed in `category` is the primary game category. We will create a new variable called `primary_category` that stores the spilt category column. We use `lubridate` change `year_published` into datetime ojbect with January 1st as default date. Then we'll use `floor_date()` to find what decade each game was released in.
 
 
 # Cleaning Methods
@@ -202,3 +167,4 @@ Utilizing ggplot and faceting function to create box plots to plot the relations
 
 
 # Conclusion
+
