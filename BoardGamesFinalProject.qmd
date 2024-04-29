@@ -207,8 +207,6 @@ board_games <- board_games%>%
 
 # Conclusion
 
-```
-
 # Data Visualization
 ## Research Question 1
 
