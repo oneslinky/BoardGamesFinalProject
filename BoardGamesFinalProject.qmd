@@ -170,6 +170,7 @@ To answer the questions of our research, we need to perform the following cleani
 # remove `image` and `thumbnail` columns
 board_games <- board_games_data_raw |> 
   select(-c("image", "thumbnail"))
+
 #Recode `compilation` and `expansion` values to yes or no
 for (i in 1:length(board_games$compilation)) {
   if (is.na(board_games$compilation[i])){
@@ -183,13 +184,19 @@ for (i in 1:length(board_games$expansion)) {
   else {
     board_games$expansion[i] <- "yes" }
 }
+# Identify how many `NA` values are in each column 
+ShowNA <- map_df(Boardgame1, ~ tibble(columns = names(.), na_count = sum(is.na(.))), .id = "variables/column name")
+
 #make a new column called decade_published to store date time objects
 board_games$decade_published = c(as.Date(as.character(board_games_data_raw$year_published), format = "%Y"))
 board_games <- board_games%>%
   mutate(decade_published = floor_date(decade_published, years(10)))
+
 #use floor_date to set to decade
+
 #make a new category to hold the primary category
 board_games$primary_category = c(board_games$category)
+
 #under assumption that first category listed is the primary category
 board_games <- board_games%>%
   mutate(primary_category = str_split(category, ",") %>% 
