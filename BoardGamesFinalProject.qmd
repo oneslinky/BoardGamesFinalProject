@@ -75,6 +75,7 @@ For `min_age`, the median is 10 and the mean is 9.715. Curiously, the max is 42,
 
 # Data Dictionary 
 This is the data dictionary for this data set
+
 ## Variable List
 
 -   game_id = unique board game ID Number
