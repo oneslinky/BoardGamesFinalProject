@@ -171,6 +171,17 @@ To answer the questions of our research, we need to perform the following cleani
 # remove `image` and `thumbnail` columns
 board_games <- board_games_data_raw |> 
   select(-c("image", "thumbnail"))
+#Recode `compilation` and `expansion` values to yes or no
+for (i in 1:length(Boardgame1$compilation)) {
+  if (is.na(Boardgame1$compilation[i])){
+    Boardgame1$compilation[i] <- "no"}
+  else {
+Boardgame1$compilation[i] <- "yes"}
+for (i in 1:length(Boardgame1$expansion)) {
+  if (is.na(Boardgame1$expansion[i])){
+    Boardgame1$expansion[i] <- "no"}
+  else {
+    Boardgame1$expansion[i] <- "yes" }
 #make a new column called decade_published to store date time objects
 board_games$decade_published = c(as.Date(as.character(board_games_data_raw$year_published), format = "%Y"))
 board_games <- board_games%>%
