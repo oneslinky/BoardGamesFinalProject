@@ -173,7 +173,7 @@ board_games <- board_games_data_raw |>
   select(-c("image", "thumbnail"))
 #make a new column called decade_published to store date time objects
 board_games$decade_published = c(as.Date(as.character(board_games_data_raw$year_published), format = "%Y"))
-board_games <- board_games_data_cleaned%>%
+board_games <- board_games%>%
   mutate(decade_published = floor_date(decade_published, years(10)))
 #use floor_date to set to decade
 
