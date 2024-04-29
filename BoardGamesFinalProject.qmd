@@ -3,8 +3,10 @@ title: "Board Games and Individual Ratings"
 author: "Crystal Zhang, Lauren Grove, Nate Ren"
 date: "5-1-24"
 format: pdf
+editor: 
+  markdown: 
+    wrap: 72
 ---
-
 
 # Set Up
 
@@ -14,10 +16,12 @@ pacman::p_load(tidyverse, stringr, RColorBrewer)
 
 ```
 
+# Import Data set
 
-# Import Dataset
-
-We are using the board games data from tidytuesday in 2019. The data comes from the Board Games Geek database which allows users to rates board games. The data spans from 1950 to 2016 with games that have at least 50 ratings. 
+We are using the board games data from tidytuesday in 2019. The data
+comes from the Board Games Geek database which allows users to rates
+board games. The data spans from 1950 to 2016 with games that have at
+least 50 ratings.
 
 ```{r}
 
@@ -27,10 +31,10 @@ head(board_games_data_raw)
 
 ```
 
-
 # Data Exploration
 
-First we need to have an overview of the data set as a basis of further analysis. 
+First we need to have an overview of the data set as a basis of further
+analysis.
 
 ## Data Structure
 
@@ -40,7 +44,15 @@ str(board_games_data_raw)
 
 ```
 
-There are a total of 10523 observations, each representing a different board game. The dataset consists of 22 variables, which includes the types integer, string, and numerical. The integer variables are: game_id, max_players, max_playtime, min_age, min_players, min_playtime, playing_time, year_published, and users_rated. The character variables are: description, image, name, thumbnail, artist, category, compilation,‘designer, expansion, family, mechanic, and publisher. The only numerical variable is average_rating. More information on variables can be seen in the Variable List
+There are a total of 10523 observations, each representing a different
+board game. The dataset consists of 22 variables, which includes the
+types integer, string, and numerical. The integer variables are:
+game_id, max_players, max_playtime, min_age, min_players, min_playtime,
+playing_time, year_published, and users_rated. The character variables
+are: description, image, name, thumbnail, artist, category,
+compilation,‘designer, expansion, family, mechanic, and publisher. The
+only numerical variable is average_rating. More information on variables
+can be seen in the Variable List
 
 ## Data Summary
 
@@ -50,30 +62,47 @@ summary(board_games_data_raw)
 
 ```
 
-This is a basic summary of the dataset. The distribution of integer and numberical variables, such as max_playtime and min_players are demonstrated with the 5-number summary and the mean. For character variables, only length (which is the same as the number of observations), class, and mode (both of these show the data type) are present.
+This is a basic summary of the data set. The distribution of integer and
+numerical variables, such as max_playtime and min_players are
+demonstrated with the 5-number summary and the mean. For character
+variables, only length (which is the same as the number of
+observations), class, and mode (both of these show the data type) are
+present.
 
-Although it is an numerical variable, `game_id` does not provide any relevant statistical information, as it is only used for identifying a game. 
+Although it is an numerical variable, `game_id` does not provide any
+relevant statistical information, as it is only used for identifying a
+game.
 
-According to this summary, values for `max_players` tend to be under 10 with a median of 4 and a mean of 5.657, which are realistic numbers for a game, and an outlying max of 999. 
+According to this summary, values for `max_players` tend to be under 10
+with a median of 4 and a mean of 5.657, which are realistic numbers for
+a game, and an outlying max of 999.
 
-Meanwhile `max_playtime` have a median of 45, a mean of 91.34, and and on outlier max of 60000 (the possible reason why the mean is so much higher than the median). 
+Meanwhile `max_playtime` have a median of 45, a mean of 91.34, and and
+on outlier max of 60000 (the possible reason why the mean is so much
+higher than the median).
 
-For `min_age`, the median is 10 and the mean is 9.715. Curiously, the max is 42, which could be a potential error. 
+For `min_age`, the median is 10 and the mean is 9.715. Curiously, the
+max is 42, which could be a potential error.
 
-`min_players` have a median of 2, a mean of 2.071, and a max of 9. 
+`min_players` have a median of 2, a mean of 2.071, and a max of 9.
 
-`min_playtime` have a median of 45 and a mean of 80.88. It also has a max of 60000, which again is likely an error as it is not a realistic minimum playtime. 
+`min_playtime` have a median of 45 and a mean of 80.88. It also has a
+max of 60000, which again is likely an error as it is not a realistic
+minimum playtime.
 
-`playing_time` have a median of 45, a mean of 91.34, and a max of 60000. 
+`playing_time` have a median of 45, a mean of 91.34, and a max of 60000.
 
-`year_plushed` have a median of 2007, a mean of 2003, and a max of 2016. This means that the most recent game in the dataset is published in 2016. 
+`year_plushed` have a median of 2007, a mean of 2003, and a max of 2016.
+This means that the most recent game in the data set is published in
+2016.
 
-`average_rating` have a median of 6.393 and a mean of 6.371. 
+`average_rating` have a median of 6.393 and a mean of 6.371.
 
-`users_rated` have a median of 176 and a mean of 870. It also has a significantly large max of 67655. 
+`users_rated` have a median of 176 and a mean of 870. It also has a
+significantly large max of 67655.
 
+# Data Dictionary
 
-# Data Dictionary 
 This is the data dictionary for this data set
 
 ## Variable List
@@ -86,23 +115,30 @@ This is the data dictionary for this data set
 
     -   Data Type = String
 
--   max_players = the largest amount of players that can play the board game at a certain time
+-   max_players = the largest amount of players that can play the board
+    game at a certain time
 
     -   Data Type - Integer
 
--   max_playtime = the longest estimated amount of time that it will take for people to finish playing the game. This is written in minutes
+-   max_playtime = the longest estimated amount of time that it will
+    take for people to finish playing the game. This is written in
+    minutes
 
     -   Data Type = Integer
 
--   min_age = the minimum age a person needs to be in order to play the board game
+-   min_age = the minimum age a person needs to be in order to play the
+    board game
 
     -   Data Type = Integer
 
--   min_players = the minimum amount of people that can play the board game at a certain time
+-   min_players = the minimum amount of people that can play the board
+    game at a certain time
 
     -   Data Type = Integer
 
--   min_playtime = the shortest estimated amount of time that it will take for people to finish playing the game. This is written in minutes.
+-   min_playtime = the shortest estimated amount of time that it will
+    take for people to finish playing the game. This is written in
+    minutes.
 
     -   Data Type = Integer
 
@@ -110,7 +146,9 @@ This is the data dictionary for this data set
 
     -   Data Type = String
 
--   playing_time = the estimated average amount of time that it will take for people to finish playing the game. This is written in minutes
+-   playing_time = the estimated average amount of time that it will
+    take for people to finish playing the game. This is written in
+    minutes
 
     -   Data Type = Integer
 
@@ -118,54 +156,77 @@ This is the data dictionary for this data set
 
     -   Data Type = Integer
 
--   category = this is a string that says what categories each board game belongs to. If a board game has multiple categories all of them will be written down and will be separated by commas
+-   category = this is a string that says what categories each board
+    game belongs to. If a board game has multiple categories all of them
+    will be written down and will be separated by commas
 
     -   Data Type = String
 
--   compilation = if the game is part of a multi-game compilation is lists what compilation it is apart of
+-   compilation = if the game is part of a multi-game compilation is
+    lists what compilation it is apart of
 
     -   Data Type = String
 
--   designer = this is the name of the person or people that designed the game. If there are multiple people that designed a game their names are split by commas in between each name
+-   designer = this is the name of the person or people that designed
+    the game. If there are multiple people that designed a game their
+    names are split by commas in between each name
 
     -   Data Type = String
 
--   expansion = if the game has an expansion pack this variable has the name of the expansion pack. If the game has multiple expansion packs each expansion pack is split by commas. 
+-   expansion = if the game has an expansion pack this variable has the
+    name of the expansion pack. If the game has multiple expansion packs
+    each expansion pack is split by commas.
 
     -   Data Type = String
 
--   mechanic = this explains how the game is played and what the game uses to work. If a game uses multiple elements to run the elements are split by commas
+-   mechanic = this explains how the game is played and what the game
+    uses to work. If a game uses multiple elements to run the elements
+    are split by commas
 
     -   Data Type = String
 
--   publisher = this is the company or people that published the game. If a game has multiple publishers then the publishers are split by commas
+-   publisher = this is the company or people that published the game.
+    If a game has multiple publishers then the publishers are split by
+    commas
 
     -   Data Type = String
 
--   average_rating = this is the average rating of the game on Board Game Geek. The rating system runs on a scale from 1 to 10
+-   average_rating = this is the average rating of the game on Board
+    Game Geek. The rating system runs on a scale from 1 to 10
 
     -   Data Type = Double
 
--   users_rated = This is the number of user that rated the game on Board Game Geek.
+-   users_rated = This is the number of user that rated the game on
+    Board Game Geek.
 
     -   Data Type = Integer
 
-
 # Research Questions
-The research questions we intend to answer are **for each decade what primary game category had the highest user rating** and **between `average_playtime`, number of users rated, and max player which has the greatest correlation with average rating**. To answer the first question, we will assume that the first category listed in `category` is the primary game category. We will create a new variable called `primary_category` that stores the spilt category column. We use `lubridate` change `year_published` into datetime ojbect with January 1st as default date. Then we'll use `floor_date()` to find what decade each game was released in.
 
+The research questions we intend to answer are **for each decade what
+primary game category had the highest user rating** and **between
+`average_playtime`, number of users rated, and max player which has the
+greatest correlation with average rating**. To answer the first
+question, we will assume that the first category listed in `category` is
+the primary game category. We will create a new variable called
+`primary_category` that stores the split category column. We use
+`lubridate` change `year_published` into datetime object with January
+1st as default date. Then we'll use `floor_date()` to find what decade
+each game was released in.
 
 # Cleaning Methods
-To answer the questions of our research, we need to perform the following cleaning tasks:
-1. Remove `image` and `thumbnail` columns using `select()`
-2. Recode `compilation` and `expansion` values to yes or no
-3. Recode `max_players` of `999` to `NA`
-4. Identify how many `NA` values are in each column
-5. Split `category` data by commas to get primary category by/using str_split
-6. Change `primary_category` variable from character to a factor
-7. Use `lubridate` to change `year` variable to a date
+
+To answer the questions of our research, we need to perform the
+following cleaning tasks: 1. Remove `image` and `thumbnail` columns
+using `select()` 2. Re code `compilation` and `expansion` values to yes
+or no 3. Re code `max_players` of `999` to `NA` 4. Identify how many
+`NA` values are in each column 5. Split `category` data by commas to get
+primary category by/using str_split 6. Change `primary_category`
+variable from character to a factor 7. Use `lubridate` to change `year`
+variable to a date
 
 # Data Cleaning
+
 ```{r}
 # remove `image` and `thumbnail` columns
 board_games <- board_games_data_raw |> 
@@ -213,19 +274,19 @@ board_games <- board_games%>%
 primary_charactor_factor <- as.factor(board_games$primary_category)
 print(unique(primary_charactor_factor))
 ```
+
 # Data Visualization
+
 ## Research Question 1
 
 ## Research Question 2
 
-
 # Conclusion
 
 # Data Visualization
+
 ## Research Question 1
 
 ## Research Question 2
 
-
 # Conclusion
-
