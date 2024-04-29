@@ -156,7 +156,7 @@ The research questions we intend to answer are **for each decade what primary ga
 
 # Cleaning Methods
 To answer the questions of our research, we need to perform the following cleaning tasks:
-1. Remove `image` and `thumbnail` columns using _____
+1. Remove `image` and `thumbnail` columns using `select()`
 2. Recode `compilation` and `expansion` values to yes or no
 3. Recode `max_players` of `999` for `game_id` 2922 to `NA`
 4. Identify how many `NA` values are in each column
@@ -165,6 +165,14 @@ To answer the questions of our research, we need to perform the following cleani
 7. Use `lubridate` to change `year` variable to a date
 
 # Data Cleaning
+
+```{r}
+
+# remove `image` and `thumbnail` columns
+board_games <- board_games_data_raw |> 
+  select(-c("image", "thumbnail"))
+
+```
 
 # Data Visualization
 ## Research Question 1
