@@ -217,12 +217,19 @@ each game was released in.
 # Cleaning Methods
 
 To answer the questions of our research, we need to perform the
-following cleaning tasks: 1. Remove `image` and `thumbnail` columns
-using `select()` 2. Re code `compilation` and `expansion` values to yes
-or no 3. Re code `max_players` of `999` to `NA` 4. Identify how many
-`NA` values are in each column 5. Split `category` data by commas to get
-primary category by/using str_split 6. Change `primary_category`
-variable from character to a factor 7. Use `lubridate` to change `year`
+following cleaning tasks: 
+1. Remove `image` and `thumbnail` columns
+using `select()` 
+2. Recode `compilation` and `expansion` values to yes
+or no 
+3. Recode `max_players` of `999` to `NA` 
+4. Identify how many
+`NA` values are in each column 
+5. Split `category` data by commas to get
+primary category by/using str_split 
+6. Change `primary_category`
+variable from character to a factor 
+7. Use `lubridate` to change `year`
 variable to a date
 
 # Data Cleaning
@@ -232,7 +239,7 @@ variable to a date
 board_games <- board_games_data_raw |> 
   select(-c("image", "thumbnail"))
 
-#Recode `compilation` and `expansion` values to yes or no
+# recode `compilation` and `expansion` values to yes or no
 for (i in 1:length(board_games$compilation)) {
   if (is.na(board_games$compilation[i])){
     board_games$compilation[i] <- "no"}
@@ -250,29 +257,29 @@ for (i in 1:length(board_games$expansion)) {
 board_games <- board_games |> 
   mutate(max_players = replace(max_players, max_players == 999, NA))
 
-# Identify how many `NA` values are in each column 
+# identify how many `NA` values are in each column 
 ShowNA <- map_df(board_games, ~ tibble(columns = names(.), na_count = sum(is.na(.))), .id = "variables/column name")
 
-#make a new column called decade_published to store date time objects
-board_games$decade_published = c(as.Date(as.character(board_games_data_raw$year_published), format = "%Y"))
-board_games <- board_games%>%
-  mutate(decade_published = floor_date(decade_published, years(10)))
-
-#use floor_date to set to decade
-
-#make a new category to hold the primary category
+# make a new category to hold the primary category
 board_games$primary_category = c(board_games$category)
 
-#under assumption that first category listed is the primary category
+# under the assumption that the first category listed is the primary category
 board_games <- board_games%>%
   mutate(primary_category = str_split(category, ",") %>% 
            #use split to make a list for each column of all the categories
            map_chr(~ trimws(.x[1])))
           # iterate over each element of the list column (.x) and extract the first element ([1])
           #trimws is used to remove any white space
-#turn primary_characor column into a factor
+
+# turn primary_charactor column into a factor
 primary_charactor_factor <- as.factor(board_games$primary_category)
 print(unique(primary_charactor_factor))
+
+# make a new column called decade_published to store date-time objects
+board_games$decade_published = c(as.Date(as.character(board_games_data_raw$year_published), format = "%Y"))
+board_games <- board_games%>%
+  mutate(decade_published = floor_date(decade_published, years(10)))
+  #use floor_date to set to decade
 ```
 
 # Data Visualization
