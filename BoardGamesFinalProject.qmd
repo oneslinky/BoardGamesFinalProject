@@ -36,8 +36,6 @@ First we need to have an overview of the data set as a basis of further analysis
 
 ```{r}
 
-board_games_data <- read.csv("./board_games.csv")
-
 str(board_games_data)
 
 ```
