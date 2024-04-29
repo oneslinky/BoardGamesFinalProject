@@ -52,7 +52,7 @@ playing_time, year_published, and users_rated. The character variables
 are: description, image, name, thumbnail, artist, category,
 compilation,‘designer, expansion, family, mechanic, and publisher. The
 only numerical variable is average_rating. More information on variables
-can be seen in the Variable List
+can be seen in the Variable List.
 
 ## Data Summary
 
