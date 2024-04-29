@@ -158,7 +158,7 @@ The research questions we intend to answer are **for each decade what primary ga
 To answer the questions of our research, we need to perform the following cleaning tasks:
 1. Remove `image` and `thumbnail` columns using `select()`
 2. Recode `compilation` and `expansion` values to yes or no
-3. Recode `max_players` of `999` for `game_id` 2922 to `NA`
+3. Recode `max_players` of `999` to `NA`
 4. Identify how many `NA` values are in each column
 5. Split `category` data by commas to get primary category by/using ______
 6. Change `primary_category` variable from character to a factor
@@ -184,6 +184,11 @@ for (i in 1:length(board_games$expansion)) {
   else {
     board_games$expansion[i] <- "yes" }
 }
+
+# replace `max_players` values of `999` with `NA`
+board_games <- board_games |> 
+  mutate(max_players = replace(max_players, max_players == 999, NA))
+
 # Identify how many `NA` values are in each column 
 ShowNA <- map_df(Boardgame1, ~ tibble(columns = names(.), na_count = sum(is.na(.))), .id = "variables/column name")
 
