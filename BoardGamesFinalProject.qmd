@@ -157,6 +157,14 @@ The research questions we intend to answer are **for each decade what primary ga
 
 
 # Cleaning Methods
+To answer the questions of our research, we need to perform the following cleaning tasks:
+1. Remove `image` and `thumbnail` columns using _____
+2. Recode `compilation` and `expansion` values to yes or no
+3. Recode `max_players` of `999` for `game_id` 2922 to `NA`
+4. Identify how many `NA` values are in each column
+5. Split `category` data by commas to get primary category by/using ______
+6. Change `primary_category` variable from character to a factor
+7. Use `lubridate` to change `year` variable to a date
 
 # Data Cleaning
 
