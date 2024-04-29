@@ -218,17 +218,24 @@ each game was released in. We'll create a histogram to visualize the user rating
 
 To answer the questions of our research, we need to perform the
 following cleaning tasks: 
+
 1. Remove `image` and `thumbnail` columns
 using `select()` 
+
 2. Recode `compilation` and `expansion` values to yes
 or no 
+
 3. Recode `max_players` of `999` to `NA` 
+
 4. Identify how many
 `NA` values are in each column 
+
 5. Split `category` data by commas to get
 primary category by/using str_split 
+
 6. Change `primary_category`
 variable from character to a factor 
+
 7. Use `lubridate` to change `year`
 variable to a date
 
