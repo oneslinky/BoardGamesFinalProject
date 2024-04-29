@@ -210,9 +210,9 @@ greatest correlation with average rating**. To answer the first
 question, we will assume that the first category listed in `category` is
 the primary game category. We will create a new variable called
 `primary_category` that stores the split category column. We use
-`lubridate` change `year_published` into datetime object with January
-1st as default date. Then we'll use `floor_date()` to find what decade
-each game was released in.
+`lubridate` to change `year_published` into a datetime object with January
+1st as the default date. Then we'll use `floor_date()` to find what decade
+each game was released in. We'll create a histogram to visualize the user rating of each primary game category per decade. To answer our second question,
 
 # Cleaning Methods
 
