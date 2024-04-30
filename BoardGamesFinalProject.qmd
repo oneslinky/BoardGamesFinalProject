@@ -232,9 +232,6 @@ ratings_by_category <- board_games %>%
   summarise(avg_category_rating = mean(average_rating, na.rm = TRUE), .groups = "drop") %>%
   ungroup()
 
-# Create a data frame with unique decade_published dates
-unique_decades <- data.frame(date = as.POSIXct(unique(ratings_by_category$decade_published)))
-
 # Function to extract decade from a date
 get_decade <- function(date) {
   year <- as.integer(format(date, "%Y"))
@@ -242,23 +239,29 @@ get_decade <- function(date) {
   return(as.factor(sprintf("%ds", decade_start)))
 }
 
-# Apply the function to create a 'decade' factor column
-unique_decades$decade <- sapply(unique_decades$date, get_decade)
+# Apply the function to create a 'decade' factor column directly in ratings_by_category
+ratings_by_category$decade <- get_decade(ratings_by_category$decade_published)
 
 # Loop through unique decades and create plots
-for (decade in unique(unique_decades$decade)) {
+unique_decades <- unique(ratings_by_category$decade)
+for (decade in unique_decades) {
   # Filter ratings data by the current decade
-  decade_ratings <- ratings_by_category[ratings_by_category$decade_published %in% unique_decades$date[unique_decades$decade == decade], ]
+  decade_ratings <- ratings_by_category[ratings_by_category$decade == decade, ]
   
-  # Create a larger plot with increased dodging width
+  # Reorder primary_category based on avg_category_rating within the current decade
+  decade_ratings <- within(decade_ratings, {
+    primary_category <- factor(primary_category, levels = primary_category[order(avg_category_rating, decreasing = TRUE)])
+  })
+  
+  # Create the plot
   p <- ggplot(decade_ratings, aes(x = primary_category, y = avg_category_rating)) +
     geom_bar(stat = "identity", fill = "purple", color = "black", position = position_dodge(width = 1.0)) +
     labs(title = sprintf("Average Category Rating by Decade: %s", as.character(decade)),
          x = "Primary Category", y = "Average Category Rating") +
     theme_minimal() +
-    coord_flip()+# Flip plot coordinates to horizontal bars
-    geom_text(aes(label = ifelse(avg_category_rating == avg_category_rating, sprintf("%.2f", avg_category_rating), "")),
-              vjust = -0.5, size = 3, color = "black") # Add text labels for max ratings
+    coord_flip() +
+    geom_text(aes(label = sprintf("%.2f", avg_category_rating)), vjust = -0.5, size = 3, color = "black")
+  
   # Print the plot
   print(p)
 }
