@@ -149,7 +149,7 @@ This is the data dictionary for this data set
 
 # Research Questions
 
-The research questions we intend to answer are: **for each decade, what primary game category had the highest user rating** and **between `average_playtime`, number of `users_rated`, and `max_players` which has the greatest correlation with average rating**. To answer the first question, we will assume that the first category listed in `category` is the primary game category. We will create a new variable called `primary_category` that stores the split category column. We use `lubridate` to change `year_published` into a datetime object, with January 1st as the default date. Then we'll use `floor_date()` to find what decade each game was released in. To answer our second question, we'll create three scatterplots and compare the relationships and correlation strength.
+The research questions we intend to answer are: **for each decade, what primary game category had the highest user rating** and **between `average_playtime`, number of `users_rated`, and `max_players`, which has the greatest correlation with average rating**. To answer the first question, we will assume that the first category listed in `category` is the primary game category. We will create a new variable called `primary_category` that stores the split category column. We use `lubridate` to change `year_published` into a datetime object, with January 1st as the default date. Then we'll use `floor_date()` to find what decade each game was released in. We'll create a bar graph of the primary game category and average user rating for each decade to visualize the data. To answer our second question, we'll create three scatterplots and compare the relationships and correlation strength.
 
 # Cleaning Methods
 
@@ -223,6 +223,7 @@ print(unique(primary_charactor_factor))
 ## Research Question 1
 
 **For each decade what primary game category had the highest user rating**
+We first create a bar graph of the primary game categories and user ratings for each decade from the 1950s to the 2010s.
 
 ```{r fig.height = 10}
 # Summarize ratings by decade_published and primary_category
@@ -262,6 +263,7 @@ for (decade in unique(unique_decades$decade)) {
   print(p)
 }
 ```
+From the graphs above we can see that _____________
 
 ## Research Question 2
 
