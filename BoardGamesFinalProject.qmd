@@ -149,7 +149,7 @@ This is the data dictionary for this data set
 
 # Research Questions
 
-The research questions we intend to answer are **for each decade what primary game category had the highest user rating** and **between `average_playtime`, number of users rated, and max player which has the greatest correlation with average rating**. To answer the first question, we will assume that the first category listed in `category` is the primary game category. We will create a new variable called `primary_category` that stores the split category column. We use `lubridate` change `year_published` into datetime object with January 1st as default date. Then we'll use `floor_date()` to find what decade each game was released in.
+The research questions we intend to answer are **for each decade what primary game category had the highest user rating** and **between `average_playtime`, number of users rated, and max player which has the greatest correlation with average rating**. To answer the first question, we will assume that the first category listed in `category` is the primary game category. We will create a new variable called `primary_category` that stores the split category column. We use `lubridate` change `year_published` into datetime object with January 1st as default date. Then we'll use `floor_date()` to find what decade each game was released in. To answer our second question, ___________ 
 
 # Cleaning Methods
 
@@ -163,20 +163,20 @@ To answer the questions of our research, we need to perform the following cleani
 
 4.  Identify how many `NA` values are in each column
 
-5.  Split `category` data by commas to get primary category by/using str_split
+5.  Use `lubridate` to change `year` variable to date and create a `decade_published` variable
 
-6.  Change `primary_category` variable from character to a factor
+6.  Split `category` data by commas to get the primary category by using `str_split()`
 
-7.  Use `lubridate` to change `year` variable to a date
+7.  Change `primary_category` variable from character to a factor
 
 # Data Cleaning
 
 ```{r}
-# remove `image` and `thumbnail` columns
+# Remove `image` and `thumbnail` columns
 board_games <- board_games_data_raw |> 
   select(-c("image", "thumbnail"))
 
-#Recode `compilation` and `expansion` values to yes or no
+# Recode `compilation` and `expansion` values to yes or no
 for (i in 1:length(board_games$compilation)) {
   if (is.na(board_games$compilation[i])){
     board_games$compilation[i] <- "no"}
@@ -190,31 +190,30 @@ for (i in 1:length(board_games$expansion)) {
     board_games$expansion[i] <- "yes" }
 }
 
-# replace `max_players` values of `999` with `NA`
+# Replace `max_players` values of `999` with `NA`
 board_games <- board_games |> 
   mutate(max_players = replace(max_players, max_players == 999, NA))
 
 # Identify how many `NA` values are in each column 
 ShowNA <- map_df(board_games, ~ tibble(columns = names(.), na_count = sum(is.na(.))), .id = "variables/column name")
 
-#make a new column called decade_published to store date time objects
+# Make a new column called decade_published to store date-time objects
 board_games$decade_published = c(as.Date(as.character(board_games_data_raw$year_published), format = "%Y"))
 board_games <- board_games%>%
   mutate(decade_published = floor_date(decade_published, years(10)))
+    #use floor_date to set to decade
 
-#use floor_date to set to decade
-
-#make a new category to hold the primary category
+# Make a new category to hold the primary category
 board_games$primary_category = c(board_games$category)
 
-#under assumption that first category listed is the primary category
+# Under the assumption that the first category listed is the primary category
 board_games <- board_games%>%
   mutate(primary_category = str_split(category, ",") %>% 
            #use split to make a list for each column of all the categories
            map_chr(~ trimws(.x[1])))
           # iterate over each element of the list column (.x) and extract the first element ([1])
           #trimws is used to remove any white space
-#turn primary_characor column into a factor
+# Turn primary_charactor column into a factor
 primary_charactor_factor <- as.factor(board_games$primary_category)
 print(unique(primary_charactor_factor))
 ```
@@ -223,7 +222,7 @@ print(unique(primary_charactor_factor))
 
 ## Research Question 1
 
-**for each decade what primary game category had the highest user rating**
+**For each decade what primary game category had the highest user rating**
 
 ```{r fig.height = 10}
 # Summarize ratings by decade_published and primary_category
