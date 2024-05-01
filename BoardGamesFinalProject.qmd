@@ -276,17 +276,15 @@ for (decade in unique_decades) {
 board_games <- board_games%>%
   mutate(average_playtime = ((max_playtime + min_playtime)/2))
 ```
-# The First Scatterplot, `averate_playtime` vs `average_rating`
+# The First Scatterplot, `playing_time` vs `average_rating`
 ```{r}
-board_games |>
-filter(average_playtime<7500) |>  
+board_games |> 
 ggplot() +  
-geom_point(aes(x=average_rating, y = average_playtime)) + 
-labs (title = "Average Playtime of Board Games VS Average Rating", 
+geom_point(aes(x=playing_time, y = average_playtime)) + 
+labs (title = "Play Time of Board Games VS Average Rating", 
       x = "Average Rating", 
-      y = "Average Playtime")
+      y = "Play Time")
 ```
-Because of outliers that made the graph extremely hard to read, some data point had to be filtered out. 
 
 #The Second Scatterplot, `users_rated` vs `average_rating`
 ```{r}
