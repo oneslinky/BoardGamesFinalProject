@@ -172,11 +172,11 @@ To answer the questions of our research, we need to perform the following cleani
 # Data Cleaning
 
 ```{r}
-# remove `image` and `thumbnail` columns
+# Remove `image` and `thumbnail` columns
 board_games <- board_games_data_raw |> 
   select(-c("image", "thumbnail"))
 
-#Recode `compilation` and `expansion` values to yes or no
+# Recode `compilation` and `expansion` values to yes or no
 for (i in 1:length(board_games$compilation)) {
   if (is.na(board_games$compilation[i])){
     board_games$compilation[i] <- "no"}
@@ -190,28 +190,28 @@ for (i in 1:length(board_games$expansion)) {
     board_games$expansion[i] <- "yes" }
 }
 
-# replace `max_players` values of `999` with `NA`
+# Replace `max_players` values of `999` with `NA`
 board_games <- board_games |> 
   mutate(max_players = replace(max_players, max_players == 999, NA))
 
 # Identify how many `NA` values are in each column 
 ShowNA <- map_df(board_games, ~ tibble(columns = names(.), na_count = sum(is.na(.))), .id = "variables/column name")
+kable(ShowNA)
 
-#make a new column called decade_published to store date time objects to be transformed into decade
+# Make a new column called decade_published to store date time objects to be transformed into decade
 board_games$decade_published = c(as.Date(as.character(board_games_data_raw$year_published), format = "%Y"))
 
-
-#make a new category to hold the primary category
+# Make a new category to hold the primary category
 board_games$primary_category = c(board_games$category)
 
-#under assumption that first category listed is the primary category
+# Under assumption that first category listed is the primary category
 board_games <- board_games%>%
   mutate(primary_category = str_split(category, ",") %>% 
            #use split to make a list for each column of all the categories
            map_chr(~ trimws(.x[1])))
           # iterate over each element of the list column (.x) and extract the first element ([1])
           #trimws is used to remove any white space
-#turn primary_characor column into a factor
+# Turn primary_characor column into a factor
 primary_charactor_factor <- as.factor(board_games$primary_category)
 print(unique(primary_charactor_factor))
 ```
