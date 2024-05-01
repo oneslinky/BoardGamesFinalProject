@@ -280,7 +280,7 @@ board_games <- board_games%>%
 ```{r}
 board_games |> 
 ggplot() +  
-geom_point(aes(x=playing_time, y = average_playtime)) + 
+geom_point(aes(x=playing_time, y = average_playtime), color = "blue") + 
 labs (title = "Play Time of Board Games VS Average Rating", 
       x = "Average Rating", 
       y = "Play Time")
@@ -290,7 +290,7 @@ labs (title = "Play Time of Board Games VS Average Rating",
 ```{r}
 board_games%>%
 ggplot() + 
-geom_point(aes(x=average_rating, y = users_rated)) + 
+geom_point(aes(x=average_rating, y = users_rated), color = "red") + 
   labs (title = "Number of Users Rated of Board Games VS Average Rating", 
       x = "Average Rating", 
       y = "Number of Users Rated")
@@ -300,7 +300,7 @@ geom_point(aes(x=average_rating, y = users_rated)) +
 board_games%>%
 filter(max_players < 150) %>%
 ggplot() + 
-geom_point(aes(x=average_rating, y = max_players)) + 
+geom_point(aes(x=average_rating, y = max_players), color = "yellow") + 
  labs (title = "Maximum Players of Board Games VS Average Rating", 
       x = "Average Rating", 
       y = "Maximum Players")
