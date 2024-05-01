@@ -199,9 +199,6 @@ ShowNA <- map_df(board_games, ~ tibble(columns = names(.), na_count = sum(is.na(
 
 #make a new column called decade_published to store date time objects
 board_games$decade_published = c(as.Date(as.character(board_games_data_raw$year_published), format = "%Y"))
-board_games <- board_games%>%
-  mutate(decade_published = floor_date(decade_published, years(10)))
-
 #use floor_date to set to decade
 
 #make a new category to hold the primary category
@@ -236,11 +233,22 @@ ratings_by_category <- board_games %>%
 get_decade <- function(date) {
   year <- as.integer(format(date, "%Y"))
   decade_start <- year - (year %% 10)
-  return(as.factor(sprintf("%ds", decade_start)))
+  return(as.character(decade_start))
 }
 
-# Apply the function to create a 'decade' factor column directly in ratings_by_category
-ratings_by_category$decade <- get_decade(ratings_by_category$decade_published)
+# Apply the function to create a 'decade' column directly in board_games
+board_games$decade_published <- as.Date(board_games$decade_published)
+board_games$decade <- get_decade(board_games$decade_published)
+
+# Summarize ratings by decade_published and primary_category
+ratings_by_category <- board_games %>%
+  group_by(decade, primary_category) %>%
+  summarise(avg_category_rating = mean(average_rating, na.rm = TRUE), .groups = "drop") %>%
+  arrange(decade, desc(avg_category_rating))
+
+# Generate unique colors for each primary_category
+num_categories <- n_distinct(ratings_by_category$primary_category)
+custom_palette <- rainbow(num_categories)
 
 # Loop through unique decades and create plots
 unique_decades <- unique(ratings_by_category$decade)
@@ -250,20 +258,16 @@ for (decade in unique_decades) {
   
   # Reorder primary_category based on avg_category_rating within the current decade
   decade_ratings <- within(decade_ratings, {
-    primary_category <- factor(primary_category, levels = primary_category[order(avg_category_rating, decreasing = TRUE)])
+    primary_category <- factor(primary_category, levels = primary_category)
   })
   
- # Generate a custom color palette with 21 distinct colors
-  custom_palette <- viridis(200, alpha = 1, begin = 0, end = 1)
-
   # Create the plot using the selected color palette
-  p <- ggplot(decade_ratings, aes(x = primary_category, y = avg_category_rating)) +
-    geom_bar(stat = "identity", aes(fill = primary_category), color = "black", position = position_dodge(width = 1.0)) +
-    labs(title = sprintf("Average Category Rating by Decade: %s", as.character(decade)),
+  p <- ggplot(decade_ratings, aes(x = primary_category, y = avg_category_rating, fill = primary_category)) +
+    geom_bar(stat = "identity", color = "black", position = position_dodge(width = 0.9)) +
+    labs(title = sprintf("Average Category Rating by Decade: %s", decade),
          x = "Primary Category", y = "Average Category Rating") +
     theme_minimal() +
     coord_flip() +
-    geom_text(aes(label = sprintf("%.2f", avg_category_rating)), vjust = -0.5, size = 3, color = "black") +
     scale_fill_manual(values = custom_palette)  # Set manual fill colors
 
   # Print the plot
