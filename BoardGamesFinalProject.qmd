@@ -317,6 +317,5 @@ geom_point(color = "yellow") +
       x = "Average Rating", 
       y = "Maximum Players")
 ```
-Again, several outliers had to be filtered out to make the graph readable. 
 
 # Conclusion
