@@ -278,19 +278,28 @@ mutate(average_playtime = ((max_playtime + min_playtime)/2))
 Boardgame1 |>
 filter(average_playtime<7500) |>  
 ggplot() +  
-geom_point(aes(x=average_rating, y = average_playtime))
+geom_point(aes(x=average_rating, y = average_playtime)) + 
+labs (title = "Average Playtime of Board Games VS Average Rating", 
+      x = "Average Rating", 
+      y = "Average Playtime")
 Because of outliers that made the graph extremely hard to read, some data point had to be filtered out. 
 
-#The Second Scatterplot, `users_rated` vs `average_rating`
+# The Second Scatterplot, `users_rated` vs `average_rating`
 Boardgame1 |>
 ggplot() + 
-geom_point(aes(x=average_rating, y = users_rated))
+geom_point(aes(x=average_rating, y = users_rated)) + 
+  labs (title = "Number of Users Rated of Board Games VS Average Rating", 
+      x = "Average Rating", 
+      y = "Number of Users Rated")
 
-#The Third Scatterplot, `max_players` vs `average_rating`
+# The Third Scatterplot, `max_players` vs `average_rating`
 Boardgame1 |> 
 filter(max_players < 150) |> 
 ggplot() + 
-geom_point(aes(x=average_rating, y = max_players))
+geom_point(aes(x=average_rating, y = max_players)) + 
+ labs (title = "Maximum Players of Board Games VS Average Rating", 
+      x = "Average Rating", 
+      y = "Maximum Players")
 Again, several outliers had to be filtered out to make the graph readable. 
 
 # Conclusion
