@@ -262,11 +262,12 @@ for (decade in unique_decades) {
          x = "Primary Category", y = "Average Category Rating") +
     theme_minimal() +
     coord_flip() +
-    scale_fill_manual(values = custom_palette)  # Set manual fill colors
+    scale_fill_manual(values = custom_palette, guide = "none")  # Suppress legend
 
   # Print the plot
   print(p)
 }
+
 ```
 
 ## Research Question 2
