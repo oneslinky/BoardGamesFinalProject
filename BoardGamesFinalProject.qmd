@@ -271,11 +271,7 @@ for (decade in unique_decades) {
 ```
 
 ## Research Question 2
-# Create new variable `average_playtime`. 
-```{r}
-board_games <- board_games%>%
-  mutate(average_playtime = ((max_playtime + min_playtime)/2))
-```
+
 # The First Scatterplot, `playing_time` vs `average_rating`
 ```{r}
 board_games |> 
