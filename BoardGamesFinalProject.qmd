@@ -279,9 +279,12 @@ board_games <- board_games%>%
 # The First Scatterplot, `playing_time` vs `average_rating`
 ```{r}
 board_games |> 
-ggplot() +  
-geom_point(aes(x=playing_time, y = average_playtime), color = "blue") + 
-labs (title = "Play Time of Board Games VS Average Rating", 
+  select(playing_time, average_rating) |> 
+  filter(!(playing_time == 60000)) |> 
+ggplot(aes(x = average_rating, y = playing_time)) +  
+geom_point(color = "blue") +
+    geom_smooth(method = "gam", se = TRUE) +  # Add line of best fit
+labs (title = "Play Time and Average Rating", 
       x = "Average Rating", 
       y = "Play Time")
 ```
@@ -289,19 +292,23 @@ labs (title = "Play Time of Board Games VS Average Rating",
 #The Second Scatterplot, `users_rated` vs `average_rating`
 ```{r}
 board_games%>%
-ggplot() + 
-geom_point(aes(x=average_rating, y = users_rated), color = "red") + 
-  labs (title = "Number of Users Rated of Board Games VS Average Rating", 
+  select(average_rating, users_rated) |> 
+ggplot(aes(x = average_rating, y = users_rated)) + 
+geom_point(color = "red") +
+  geom_smooth(method = "gam", se = TRUE) +  # Add line of best fit
+  labs (title = "Number of Users Rated and Average Rating",
       x = "Average Rating", 
       y = "Number of Users Rated")
 ```
 #The Third Scatterplot, `max_players` vs `average_rating`
 ```{r}
 board_games%>%
-filter(max_players < 150) %>%
-ggplot() + 
-geom_point(aes(x=average_rating, y = max_players), color = "yellow") + 
- labs (title = "Maximum Players of Board Games VS Average Rating", 
+  select(average_rating, max_players) |> 
+  filter(!is.na(max_players), !(max_players > 300)) |> 
+ggplot(aes(x = average_rating, y = max_players)) + 
+geom_point(color = "yellow") + 
+  geom_smooth(method = "gam", se = TRUE) +  # Add line of best fit
+ labs (title = "Maximum Number of Players and Average Rating", 
       x = "Average Rating", 
       y = "Maximum Players")
 ```
