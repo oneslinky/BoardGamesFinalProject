@@ -270,4 +270,27 @@ From the graphs above we can see that _____________
 
 ## Research Question 2
 
+# Create new variable `average_playtime`. 
+Boardgame1 <- Boardgame1 |> 
+mutate(average_playtime = ((max_playtime + min_playtime)/2))
+
+# The First Scatterplot, `averate_playtime` vs `average_rating`
+Boardgame1 |>
+filter(average_playtime<7500) |>  
+ggplot() +  
+geom_point(aes(x=average_rating, y = average_playtime))
+Because of outliers that made the graph extremely hard to read, some data point had to be filtered out. 
+
+#The Second Scatterplot, `users_rated` vs `average_rating`
+Boardgame1 |>
+ggplot() + 
+geom_point(aes(x=average_rating, y = users_rated))
+
+#The Third Scatterplot, `max_players` vs `average_rating`
+Boardgame1 |> 
+filter(max_players < 150) |> 
+ggplot() + 
+geom_point(aes(x=average_rating, y = max_players))
+Again, several outliers had to be filtered out to make the graph readable. 
+
 # Conclusion
