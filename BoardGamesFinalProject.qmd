@@ -274,9 +274,13 @@ for (decade in unique_decades) {
 
 # The First Scatterplot, `playing_time` vs `average_rating`
 ```{r}
+#First, identify outliers that may distort the graph. This will apply to all other visualizations for this question. 
+outlierhighplaytime <- 90+1.5*(90-30) #Upper boundary for outlier = Q3 + 1.5IQR
+outlierlowplaytime <- 30-1.5*(90-30)  #Lower boundary for outlier = Q1 - 1.5IQR
+#All information about Q3, Q1, and IQR are obtained for `summary(Boardgame)`.
 board_games |> 
   select(playing_time, average_rating) |> 
-  filter(!(playing_time == 60000)) |> 
+ filter(playing_time > outlierlowplaytime, playing_time < outlierhighplaytime) |>
 ggplot(aes(x = average_rating, y = playing_time)) +  
 geom_point(color = "blue") +
     geom_smooth(method = "gam", se = TRUE) +  # Add line of best fit
@@ -287,8 +291,11 @@ labs (title = "Play Time and Average Rating",
 
 #The Second Scatterplot, `users_rated` vs `average_rating`
 ```{r}
+outlierhighuser <- 518+1.5*(518-85)
+outlierlowuser <- 85-1.5*(518-85)
 board_games%>%
   select(average_rating, users_rated) |> 
+filter (users_rated > outlierlowuser, users_rated < outlierhighuser) |> 
 ggplot(aes(x = average_rating, y = users_rated)) + 
 geom_point(color = "red") +
   geom_smooth(method = "gam", se = TRUE) +  # Add line of best fit
@@ -298,9 +305,11 @@ geom_point(color = "red") +
 ```
 #The Third Scatterplot, `max_players` vs `average_rating`
 ```{r}
+outlierhighplayer <- 6 + 1.5*(6-4)
+outlierlowplayer <- 4-1.5*(6-4)
 board_games%>%
   select(average_rating, max_players) |> 
-  filter(!is.na(max_players), !(max_players > 300)) |> 
+  filter(max_players > outlierlowplayer, max_players < outlierhighplayer) |> 
 ggplot(aes(x = average_rating, y = max_players)) + 
 geom_point(color = "yellow") + 
   geom_smooth(method = "gam", se = TRUE) +  # Add line of best fit
