@@ -9,7 +9,7 @@ format: pdf
 
 ```{r import}
 
-pacman::p_load(tidyverse, stringr, ggplot2, viridis)
+pacman::p_load(tidyverse, stringr, ggplot2, viridis, knitr)
 
 ```
 
