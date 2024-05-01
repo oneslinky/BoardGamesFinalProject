@@ -197,9 +197,9 @@ board_games <- board_games |>
 # Identify how many `NA` values are in each column 
 ShowNA <- map_df(board_games, ~ tibble(columns = names(.), na_count = sum(is.na(.))), .id = "variables/column name")
 
-#make a new column called decade_published to store date time objects
+#make a new column called decade_published to store date time objects to be transformed into decade
 board_games$decade_published = c(as.Date(as.character(board_games_data_raw$year_published), format = "%Y"))
-#use floor_date to set to decade
+
 
 #make a new category to hold the primary category
 board_games$primary_category = c(board_games$category)
@@ -223,12 +223,6 @@ print(unique(primary_charactor_factor))
 **for each decade what primary game category had the highest user rating**
 
 ```{r fig.height = 10}
-# Summarize ratings by decade_published and primary_category
-ratings_by_category <- board_games %>%
-  group_by(decade_published, primary_category) %>%
-  summarise(avg_category_rating = mean(average_rating, na.rm = TRUE), .groups = "drop") %>%
-  ungroup()
-
 # Function to extract decade from a date
 get_decade <- function(date) {
   year <- as.integer(format(date, "%Y"))
