@@ -9,7 +9,7 @@ format: pdf
 
 ```{r import}
 
-pacman::p_load(tidyverse, stringr, RColorBrewer, ggplot2)
+pacman::p_load(tidyverse, stringr, ggplot2, viridis)
 
 ```
 
@@ -149,7 +149,7 @@ This is the data dictionary for this data set
 
 # Research Questions
 
-The research questions we intend to answer are: **for each decade, what primary game category had the highest user rating** and **between `average_playtime`, number of `users_rated`, and `max_players`, which has the greatest correlation with average rating**. To answer the first question, we will assume that the first category listed in `category` is the primary game category. We will create a new variable called `primary_category` that stores the split category column. We use `lubridate` to change `year_published` into a datetime object, with January 1st as the default date. Then we'll use `floor_date()` to find what decade each game was released in. We'll create a bar graph of the primary game category and average user rating for each decade to visualize the data. To answer our second question, we'll create three scatterplots and compare the relationships and correlation strength.
+The research questions we intend to answer are **for each decade what primary game category had the highest user rating** and **between `average_playtime`, number of users rated, and max player which has the greatest correlation with average rating**. To answer the first question, we will assume that the first category listed in `category` is the primary game category. We will create a new variable called `primary_category` that stores the split category column. We use `lubridate` change `year_published` into datetime object with January 1st as default date. Then we'll use `floor_date()` to find what decade each game was released in.
 
 # Cleaning Methods
 
@@ -163,20 +163,20 @@ To answer the questions of our research, we need to perform the following cleani
 
 4.  Identify how many `NA` values are in each column
 
-5.  Use `lubridate` to change `year_published` variable to date and create a `decade_published` variable
+5.  Split `category` data by commas to get primary category by/using str_split
 
-6.  Split `category` data by commas to get the primary category by using `str_split()`
+6.  Change `primary_category` variable from character to a factor
 
-7.  Change `primary_category` variable from character to a factor
+7.  Use `lubridate` to change `year` variable to a date
 
 # Data Cleaning
 
 ```{r}
-# Remove `image` and `thumbnail` columns
+# remove `image` and `thumbnail` columns
 board_games <- board_games_data_raw |> 
   select(-c("image", "thumbnail"))
 
-# Recode `compilation` and `expansion` values to yes or no
+#Recode `compilation` and `expansion` values to yes or no
 for (i in 1:length(board_games$compilation)) {
   if (is.na(board_games$compilation[i])){
     board_games$compilation[i] <- "no"}
@@ -190,30 +190,31 @@ for (i in 1:length(board_games$expansion)) {
     board_games$expansion[i] <- "yes" }
 }
 
-# Replace `max_players` values of `999` with `NA`
+# replace `max_players` values of `999` with `NA`
 board_games <- board_games |> 
   mutate(max_players = replace(max_players, max_players == 999, NA))
 
 # Identify how many `NA` values are in each column 
 ShowNA <- map_df(board_games, ~ tibble(columns = names(.), na_count = sum(is.na(.))), .id = "variables/column name")
 
-# Make a new column called decade_published to store date-time objects
+#make a new column called decade_published to store date time objects
 board_games$decade_published = c(as.Date(as.character(board_games_data_raw$year_published), format = "%Y"))
 board_games <- board_games%>%
   mutate(decade_published = floor_date(decade_published, years(10)))
-    #use floor_date to set to decade
 
-# Make a new category to hold the primary category
+#use floor_date to set to decade
+
+#make a new category to hold the primary category
 board_games$primary_category = c(board_games$category)
 
-# Under the assumption that the first category listed is the primary category
+#under assumption that first category listed is the primary category
 board_games <- board_games%>%
   mutate(primary_category = str_split(category, ",") %>% 
            #use split to make a list for each column of all the categories
            map_chr(~ trimws(.x[1])))
           # iterate over each element of the list column (.x) and extract the first element ([1])
           #trimws is used to remove any white space
-# Turn primary_charactor column into a factor
+#turn primary_characor column into a factor
 primary_charactor_factor <- as.factor(board_games$primary_category)
 print(unique(primary_charactor_factor))
 ```
@@ -222,8 +223,7 @@ print(unique(primary_charactor_factor))
 
 ## Research Question 1
 
-**For each decade what primary game category had the highest user rating**
-We first create a bar graph of the primary game categories and user ratings for each decade from the 1950s to the 2010s.
+**for each decade what primary game category had the highest user rating**
 
 ```{r fig.height = 10}
 # Summarize ratings by decade_published and primary_category
@@ -253,53 +253,61 @@ for (decade in unique_decades) {
     primary_category <- factor(primary_category, levels = primary_category[order(avg_category_rating, decreasing = TRUE)])
   })
   
-  # Create the plot
+ # Generate a custom color palette with 21 distinct colors
+  custom_palette <- viridis(200, alpha = 1, begin = 0, end = 1)
+
+  # Create the plot using the selected color palette
   p <- ggplot(decade_ratings, aes(x = primary_category, y = avg_category_rating)) +
-    geom_bar(stat = "identity", fill = "purple", color = "black", position = position_dodge(width = 1.0)) +
+    geom_bar(stat = "identity", aes(fill = primary_category), color = "black", position = position_dodge(width = 1.0)) +
     labs(title = sprintf("Average Category Rating by Decade: %s", as.character(decade)),
          x = "Primary Category", y = "Average Category Rating") +
     theme_minimal() +
     coord_flip() +
-    geom_text(aes(label = sprintf("%.2f", avg_category_rating)), vjust = -0.5, size = 3, color = "black")
-  
+    geom_text(aes(label = sprintf("%.2f", avg_category_rating)), vjust = -0.5, size = 3, color = "black") +
+    scale_fill_manual(values = custom_palette)  # Set manual fill colors
+
   # Print the plot
   print(p)
 }
 ```
-From the graphs above we can see that _____________
 
 ## Research Question 2
-
 # Create new variable `average_playtime`. 
-Boardgame1 <- Boardgame1 |> 
-mutate(average_playtime = ((max_playtime + min_playtime)/2))
-
+```{r}
+board_games <- board_games%>%
+  mutate(average_playtime = ((max_playtime + min_playtime)/2))
+```
 # The First Scatterplot, `averate_playtime` vs `average_rating`
-Boardgame1 |>
+```{r}
+board_games |>
 filter(average_playtime<7500) |>  
 ggplot() +  
 geom_point(aes(x=average_rating, y = average_playtime)) + 
 labs (title = "Average Playtime of Board Games VS Average Rating", 
       x = "Average Rating", 
       y = "Average Playtime")
+```
 Because of outliers that made the graph extremely hard to read, some data point had to be filtered out. 
 
-# The Second Scatterplot, `users_rated` vs `average_rating`
-Boardgame1 |>
+#The Second Scatterplot, `users_rated` vs `average_rating`
+```{r}
+board_games%>%
 ggplot() + 
 geom_point(aes(x=average_rating, y = users_rated)) + 
   labs (title = "Number of Users Rated of Board Games VS Average Rating", 
       x = "Average Rating", 
       y = "Number of Users Rated")
-
-# The Third Scatterplot, `max_players` vs `average_rating`
-Boardgame1 |> 
-filter(max_players < 150) |> 
+```
+#The Third Scatterplot, `max_players` vs `average_rating`
+```{r}
+board_games%>%
+filter(max_players < 150) %>%
 ggplot() + 
 geom_point(aes(x=average_rating, y = max_players)) + 
  labs (title = "Maximum Players of Board Games VS Average Rating", 
       x = "Average Rating", 
       y = "Maximum Players")
+```
 Again, several outliers had to be filtered out to make the graph readable. 
 
 # Conclusion
