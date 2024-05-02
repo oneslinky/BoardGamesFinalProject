@@ -272,10 +272,7 @@ for (decade in unique_decades) {
 
 ```
 From the bar graphs, we can see that there has been a significant increase in the types of games throughout the decades. Or at least the specificity of which we label the primary category of board games has increased. In the 1950s there were 21 primary game categories and in the 2010s there were 80 different primary game categories according to our `board_games` dataset. 
-In the 1950s the primary category with the highest average rating was `Sports`. In the 1960's it was `Nautical`. In the 1970s it was `Vietnam War`. In the 1980s it was `Game System`. In the 1990s it was `Renaissance`. In the 2000s it was `Medical`. Lastly, in the 2010s the primary category with the highest average rating was `American Indian Wars`. Each decade has a category of `NA` which tells us the average rating of the games that did not have a category given to them.
-
-
-
+In the 1950s, the primary category with the highest average rating was `Sports`. The 1950s were the decade following WWII. Americans found themselves rich with prosperity, and there was a focus on family-centric entertainment. This created an environment where sports like baseball and football thrived, which could be a reason why `Sports` was the highest-rated category in this decade. In the 1960s, the highest-rated category was `Nautical`. In the 1970s, the highest-rated category was `Vietnam War`. This category reflects a major historic event during this decade. The Vietnam War polarized the American public and had a great effect on the world's perception of America. This was the decade that America finally decided to withdraw troops from Vietnam. In the 1980s, the highest-rated category was `Game System`. In the 1990s, it was `Renaissance`. In the 2000s, it was `Medical`. This may be due to huge medical advancements during this decade in things such as human genome sequencing in 2007, the HPV vaccine in 2006, and DaVinci robotic-assisted surgery approval. There was a great fascination with the medical field at this time. Lastly, in the 2010s, the primary category with the highest average rating was `American Indian Wars`. Each decade also has a category of 'NA', which tells us the average rating of the games that did not have a category given to them.
 
 ## Research Question 2
 
