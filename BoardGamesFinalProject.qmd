@@ -27,7 +27,7 @@ head(board_games_data_raw)
 
 # Data Exploration
 
-First we need to have an overview of the data set as a basis of further analysis.
+First, we need to have an overview of the data set as a basis of further analysis.
 
 ## Data Structure
 
@@ -37,7 +37,7 @@ str(board_games_data_raw)
 
 ```
 
-There are a total of 10523 observations, each representing a different board game. The dataset consists of 22 variables, which includes the types integer, string, and numerical. The integer variables are:game_id, max_players, max_playtime, min_age, min_players, min_playtime, playing_time, year_published, and users_rated. The character variables are: description, image, name, thumbnail, artist, category, compilation,‘designer, expansion, family, mechanic, and publisher. The only numerical variable is average_rating. More information on variables can be seen in the Variable List
+There are a total of 10523 observations, each representing a different board game. The dataset consists of 22 variables, which includes the types integer, string, and numerical. The integer variables are: `game_id`, `max_players`, `max_playtime`, `min_age`, `min_players`, `min_playtime`, `playing_time`, `year_published`, and `users_rated`. The character variables are `description`, `image`, `name`, `thumbnail`, `artist`, `category`, `compilation`, `designer`, `expansion`, `family`, `mechanic`, and `publisher`. The only numerical variable is `average_rating`. More information on variables can be seen in the Variable List.
 
 ## Data Summary
 
@@ -47,109 +47,109 @@ summary(board_games_data_raw)
 
 ```
 
-This is a basic summary of the data set. The distribution of integer and numerical variables, such as max_playtime and min_players are demonstrated with the 5-number summary and the mean. For character variables, only length (which is the same as the number of observations), class, and mode (both of these show the data type) are present.
+This is a basic summary of the data set. The distribution of integer and numerical variables, such as `max_playtime` and `min_players` is demonstrated with the 5-number summary and the mean. For character variables, only length (which is the same as the number of observations), class, and mode (both of these show the data type) are present.
 
-Although it is an numerical variable, `game_id` does not provide any relevant statistical information, as it is only used for identifying a game.
+Although it is a numerical variable, `game_id` does not provide any relevant statistical information, as it is only used for identifying a game.
 
 According to this summary, values for `max_players` tend to be under 10 with a median of 4 and a mean of 5.657, which are realistic numbers for a game, and an outlying max of 999.
 
-Meanwhile `max_playtime` have a median of 45, a mean of 91.34, and and on outlier max of 60000 (the possible reason why the mean is so much higher than the median).
+Meanwhile `max_playtime` has a median of 45, a mean of 91.34, and and on outlier max of 60000 (the possible reason why the mean is so much higher than the median).
 
 For `min_age`, the median is 10 and the mean is 9.715. Curiously, the max is 42, which could be a potential error.
 
 `min_players` have a median of 2, a mean of 2.071, and a max of 9.
 
-`min_playtime` have a median of 45 and a mean of 80.88. It also has a max of 60000, which again is likely an error as it is not a realistic minimum playtime.
+`min_playtime` has a median of 45 and a mean of 80.88. It also has a max of 60000, which again is likely an error as it is not a realistic minimum playtime.
 
-`playing_time` have a median of 45, a mean of 91.34, and a max of 60000.
+`playing_time` has a median of 45, a mean of 91.34, and a max of 60000.
 
-`year_plushed` have a median of 2007, a mean of 2003, and a max of 2016. This means that the most recent game in the data set is published in 2016.
+`year_published` has a median of 2007, a mean of 2003, and a max of 2016. This means that the most recent game in the data set was published in 2016.
 
-`average_rating` have a median of 6.393 and a mean of 6.371.
+`average_rating` has a median of 6.393 and a mean of 6.371.
 
-`users_rated` have a median of 176 and a mean of 870. It also has asignificantly large max of 67655.
+`users_rated` has a median of 176 and a mean of 870. It also has a significantly large max of 67655.
 
 # Data Dictionary
 
-This is the data dictionary for this data set
+This is the data dictionary for this data set.
 
 ## Variable List
 
--   game_id = unique board game ID Number
+-   `game_id` = unique board game ID Number
 
     -   Data Type = Integer
 
--   description = short description of the game
+-   `description` = short description of the game
 
     -   Data Type = String
 
--   max_players = the largest amount of players that can play the board game at a certain time
+-   `max_players` = the largest amount of players that can play the board game at a certain time
 
     -   Data Type - Integer
 
--   max_playtime = the longest estimated amount of time that it will take for people to finish playing the game. This is written in minutes
+-   `max_playtime` = the longest estimated amount of time that it will take for people to finish playing the game. This is written in minutes
 
     -   Data Type = Integer
 
--   min_age = the minimum age a person needs to be in order to play the board game
+-   `min_age` = the minimum age a person needs to be in order to play the board game
 
     -   Data Type = Integer
 
--   min_players = the minimum amount of people that can play the board game at a certain time
+-   `min_players` = the minimum amount of people that can play the board game at a certain time
 
     -   Data Type = Integer
 
--   min_playtime = the shortest estimated amount of time that it will take for people to finish playing the game. This is written in minutes.
+-   `min_playtime` = the shortest estimated amount of time that it will take for people to finish playing the game. This is written in minutes.
 
     -   Data Type = Integer
 
--   name = the name of the board game
+-   `name` = the name of the board game
 
     -   Data Type = String
 
--   playing_time = the estimated average amount of time that it will take for people to finish playing the game. This is written in minutes
+-   `playing_time` = the estimated average amount of time that it will take for people to finish playing the game. This is written in minutes
 
     -   Data Type = Integer
 
--   year_published = the year that the game was published
+-   `year_published` = the year that the game was published
 
     -   Data Type = Integer
 
--   category = this is a string that says what categories each board game belongs to. If a board game has multiple categories all of them will be written down and will be separated by commas
+-   `category` = this is a string that says what categories each board game belongs to. If a board game has multiple categories all of them will be written down and will be separated by commas
 
     -   Data Type = String
 
--   compilation = if the game is part of a multi-game compilation is lists what compilation it is apart of
+-   `compilation` = if the game is part of a multi-game compilation it lists what compilation it is a part of
 
     -   Data Type = String
 
--   designer = this is the name of the person or people that designed the game. If there are multiple people that designed a game their names are split by commas in between each name
+-   `designer` = this is the name of the person or people who designed the game. If there are multiple people that designed a game their names are split by commas in between each name
 
     -   Data Type = String
 
--   expansion = if the game has an expansion pack this variable has the name of the expansion pack. If the game has multiple expansion packs each expansion pack is split by commas.
+-   `expansion` = if the game has an expansion pack this variable has the name of the expansion pack. If the game has multiple expansion packs each expansion pack is split by commas.
 
     -   Data Type = String
 
--   mechanic = this explains how the game is played and what the game uses to work. If a game uses multiple elements to run the elements are split by commas
+-   `mechanic` = this explains how the game is played and what the game uses to work. If a game uses multiple elements to run the elements are split by commas
 
     -   Data Type = String
 
--   publisher = this is the company or people that published the game. If a game has multiple publishers then the publishers are split by commas
+-   `publisher` = this is the company or people that published the game. If a game has multiple publishers then the publishers are split by commas
 
     -   Data Type = String
 
--   average_rating = this is the average rating of the game on Board Game Geek. The rating system runs on a scale from 1 to 10
+-   `average_rating` = this is the average rating of the game on Board Game Geek. The rating system runs on a scale from 1 to 10
 
     -   Data Type = Double
 
--   users_rated = This is the number of user that rated the game on Board Game Geek.
+-   `users_rated` = This is the number of user that rated the game on Board Game Geek.
 
     -   Data Type = Integer
 
 # Research Questions
 
-The research questions we intend to answer are: **for each decade, what primary game category had the highest user rating** and **between `average_playtime`, number of users rated, and max player, which has the greatest correlation with average rating**. To answer the first question, we will assume that the first category listed in `category` is the primary game category. We will create a new variable called `primary_category` that stores the split category column. We use `as.Date()` to change `year_published` into a datetime object with a default date being placed. Then we plan to group all the decades together to find the average rating for each category in each decade. We'll make 7 bar charts for each existing decade in our dataset to see which games have the best rating. To answer the second question, 
+The research questions we intend to answer are: **for each decade, what primary game category had the highest user rating** and **between `playing_time`, number of `users_rated`, and `max_players`, which has the greatest correlation with `average_rating`**. To answer the first question, we will assume that the first category listed in `category` is the primary game category. We will create a new variable called `primary_category` that stores the split category column. We use `as.Date()` to change `year_published` into a datetime object with a default date being placed. Then we plan to group all the decades together to find the average rating for each category in each decade. We'll make 7 bar charts for each existing decade in our dataset to see which games have the best rating. To answer the second question, we'll create three scatterplots, one for `playing_time`, `users_rate`, and `max_players` to see if there is a correlation and which is greatest between these variables and `average_rating`.
 
 # Cleaning Methods
 
@@ -165,7 +165,7 @@ To answer the questions of our research, we need to perform the following cleani
 
 5.  Change the `year_published` variable to date and create a `decade_published` variable to store these datetime objects
 
-6.  Split `category` data by commas to get primary category by using `str_split()`
+6.  Split `category` data by commas to get the primary category by using `str_split()`
 
 7.  Change `primary_category` variable from a character to a factor
 
@@ -220,9 +220,9 @@ print(unique(primary_charactor_factor))
 
 # Data Visualization
 
-## Research Question 1: Bar Graphs of Primary Game Category and Average User Rating For Each Decade
+## Bar Graphs of Primary Game Category and Average User Rating For the 1950s to the 2010s
 
-We'll first create a `decade` variable using our custom `get_decade` function and our `decade_published` variable. We take our `board_games` data and group by `decade` and `primary_category`. Within each of these groups we calculate the average category rating using `mean()`. We then order the resulting dataframe by `decade` in ascending order and then by `avg_category_rating` in descending order within each `decade` using `arrange()`. Next, we create a custom palette to apply to our bar graphs so we can differentiate between primary categories.
+We'll first create a `decade` variable using our custom `get_decade` function and our `decade_published` variable. We take our `board_games` data and group by `decade` and `primary_category`. Within each of these groups we calculate the average category rating using `mean()`. We then order the resulting data frame by `decade` in ascending order and then by `avg_category_rating` in descending order within each `decade` using `arrange()`. Next, we create a custom palette to apply to our bar graphs so we can differentiate between primary categories. Next, we use a for loop to iterate through each unique decade to reorder `primary_category` and create a bar plot for each decade using `ggplot2()`. Lastly, we print out those 7 plots we just created.
 
 ```{r fig.height = 10}
 # Function to extract decade from a date
@@ -274,14 +274,13 @@ for (decade in unique_decades) {
 From the bar graphs, we can see that there has been a significant increase in the types of games throughout the decades. Or at least the specificity of which we label the primary category of board games has increased. In the 1950s there were 21 primary game categories and in the 2010s there were 80 different primary game categories according to our `board_games` dataset. 
 In the 1950s, the primary category with the highest average rating was `Sports`. The 1950s were the decade following WWII. Americans found themselves rich with prosperity, and there was a focus on family-centric entertainment. This created an environment where sports like baseball and football thrived, which could be a reason why `Sports` was the highest-rated category in this decade. In the 1960s, the highest-rated category was `Nautical`. In the 1970s, the highest-rated category was `Vietnam War`. This category reflects a major historic event during this decade. The Vietnam War polarized the American public and had a great effect on the world's perception of America. This was the decade that America finally decided to withdraw troops from Vietnam. In the 1980s, the highest-rated category was `Game System`. In the 1990s, it was `Renaissance`. In the 2000s, it was `Medical`. This may be due to huge medical advancements during this decade in things such as human genome sequencing in 2007, the HPV vaccine in 2006, and DaVinci robotic-assisted surgery approval. There was a great fascination with the medical field at this time. Lastly, in the 2010s, the primary category with the highest average rating was `American Indian Wars`. Each decade also has a category of 'NA', which tells us the average rating of the games that did not have a category given to them.
 
-## Research Question 2
-
-For the second research questions we plan to make three graphs that compares each variable with `average_rating` to see which has the greatest correlation with `average_rating`.
-The first step is to find the upper and lower outliers for `playing_time`, `users_rate`, and `max_players` using the 1st quartile and the 3rd quartile provided by the `summary()` function. This is to ensure that the outliers are filtered prior to the plot construction so they would not distort the graph and make correlation *appear* weaker because of their extreme values. 
+## Scatterplots
+For the second research question we plan to make three scatterplots that compare each variable with `average_rating` to see which has the greatest correlation with `average_rating`.
+The first step is to find the upper and lower outliers for `playing_time`, `users_rate`, and `max_players` using the 1st quartile and the 3rd quartile provided by the `summary()` function. This is to ensure that the outliers are filtered prior to the plot construction so they would not distort the graph and make the correlation *appear* weaker because of their extreme values. 
 The formula for the upper bound outlier is Q3 + 1.5*(Q3-Q1) and the lower bound outlier is Q1 - 1.5(Q3-Q1). 
-Each plot will also include a line of best fit which would demonstrate a more explicit and accurate correlation between the two variables. 
+Each plot will also include a line of best fit which would demonstrate a more explicit and accurate correlation between the two variables.
 
-# The First Scatterplot, `playing_time` vs `average_rating`
+### `playing_time` vs `average_rating`
 ```{r}
 outlierhighplaytime <- 90+1.5*(90-30) #calculating the upper bound for outliers
 outlierlowplaytime <- 30-1.5*(90-30)  #calculating the lower bound for outliers
@@ -296,7 +295,7 @@ labs (title = "Play Time and Average Rating", #gives plot human-readable labels
       y = "Play Time") 
 ```
 
-#The Second Scatterplot, `users_rated` vs `average_rating`
+### `users_rated` vs `average_rating`
 ```{r}
 outlierhighuser <- 518+1.5*(518-85) #this and the following code calculates bounds for outliers 
 outlierlowuser <- 85-1.5*(518-85)
@@ -310,7 +309,7 @@ geom_point(color = "red") + #assign color
       x = "Average Rating", 
       y = "Number of Users Rated")
 ```
-#The Third Scatterplot, `max_players` vs `average_rating`
+### `max_players` vs `average_rating`
 ```{r}
 outlierhighplayer <- 6 + 1.5*(6-4) #outlier bound calculations 
 outlierlowplayer <- 4-1.5*(6-4)
@@ -324,15 +323,13 @@ geom_point(color = "yellow") + #assign color
       x = "Average Rating", 
       y = "Maximum Players")
 ```
-There is a slight positive correlation betweeen play time of games and its average rating. This means that overall, the longer the play time, the higher the average rating. However, there are many games with the same play time but has different ratings. 
-There is no significant correlation between numbers of users rating the game and the game's average rating. However, the graph appears to be skewed to the left. 
-The correlation between maximum number of players and average rating is very interest. Despite the line of best fit showing a negative correlation, all games visualized have a maximum player number that is an integer between 2 and 8. This makes sense as a game cannot have a fraction of a player. Games that have the same number of players have vastly different ratings though. The negative correlation seems to be caused by the fact that there are very few games with extremely low ratings. 
-Based on these observations, it is concluded that play time have the greatest correlation with average rating, in that average rating increases with play time. 
-However, it is important to remember that since correlation does not equal causation, having a longer play time would not necessarily make the average rating happen. But it there really is causation, this relationship may be explained by longer games having more and better qualitied playable content than shorter ones. 
+There is a slight positive correlation between `playing_time` of games and their `average_rating`. This means that overall, the longer the play time, the higher the average rating. However, there are many games with the same `playing_time` but have different ratings. 
+There is no significant correlation between number of users rating the game and the game's `average_rating`. However, the graph appears to be skewed to the left. 
+The correlation between the maximum number of players and `average_rating` is very interesting. Despite the line of best fit showing a negative correlation, all games visualized have a maximum player number that is an integer between 2 and 8. This makes sense as a game cannot have a fraction of a player. Games that have the same number of players have vastly different ratings though. The negative correlation seems to be caused by the fact that there are very few games with extremely low ratings. 
+Based on these observations, it is concluded that `playing_time` has the greatest correlation with `average_rating`, in that `average_rating` increases with `playing_time`. 
+However, it is important to remember that since correlation does not equal causation, having a longer `playing_time` would not necessarily make the `average_rating` happen. But if there is causation, this relationship may be explained by longer games being more memorable and having more quality playable content than shorter ones. 
 
 # Conclusion
-
-We found that overall after the 1960's that games that are part of the American Civil WAr are alwasy in the top five. In fact the board games that are rated highly since the 1960's seem to all either be war related games or be related to a cultural trend. One example is in the 1980's the second highest rated category is space exploration with fits with the trend of science fiction that was emerging due to the moon landing 5 years prior. In the 1970's the best rated games are those related to the Vietnam War this could be related to how during the early 70's many Americans were beginning to hate being apart of the Vietnam War and these board games could be anti-Vietnam war related which would have connect to Americans. Also since the war ends in 1975 it means that it is still part of the mainstream giving people all sorts of stories and lessons to make board games from. 
-Also we found that the games with longer play times have the more correlation with the average rating of a game. This could be that since peope are playing the game long they are able to get a better experience with their friends and family leading to overall high ratings as when they think back they can think of many moments. Long board games also have the ability to be more complex as they have more time to implement more mechanics for people to experiment with. With more complexity it also leads to more replay ability as each time someone plays the game they can do it differently. Replay ability typically means that people can play it more times in one sitting without switching to another game. These are just some reason on why we think that there is a positive correlation between play time and average rating. 
-The board game industry has expanded since the 1960's with 2010 having so many different categories of board games people are sure to find a game to suit them.
-
+Overall, we found that after the 1960's games that are part of the American Civil War are often in the top five. In fact, the board games that have been rated highly since the 1960s seem to be either war-related games or related to a cultural trend. One example is in the 1980's the second highest-rated category is space exploration with fits with the trend of science fiction that was emerging due to the moon landing 5 years prior. In the 1970s the best-rated games were those related to the Vietnam War this could be related to how during the early 70s many Americans were beginning to hate being a part of the Vietnam War and these board games could be anti-Vietnam War related which would have connected to Americans. Also since the war ends in 1975 it means that it is still part of the mainstream giving people all sorts of stories and lessons to make board games from. 
+Also, we found that the games with longer play times have more correlation with the average rating of a game. This could be that since people are playing the game long they are able to get a better experience with their friends and family leading to overall high ratings as when they think back they can think of many moments. Longer board games also have the ability to be more complex as they have more time to implement more mechanics for people to experiment with. With more complexity it also leads to more replayability as each time someone plays the game they can do it differently. Replayability typically means that people can play it more times in one sitting without switching to another game. These are some reasons on why we think that there is a positive correlation between play time and average rating. 
+The board game industry has expanded since the 1960s with 2010 having so many different categories of board games people are sure to find a game to suit them.
