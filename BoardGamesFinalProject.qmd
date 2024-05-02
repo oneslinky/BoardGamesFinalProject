@@ -251,9 +251,9 @@ for (decade in unique_decades) {
   decade_ratings <- ratings_by_category[ratings_by_category$decade == decade, ]
   
   # Reorder primary_category based on avg_category_rating within the current decade
-  decade_ratings <- within(decade_ratings, {
-    primary_category <- factor(primary_category, levels = primary_category)
-  })
+  decade_ratings <- decade_ratings %>%
+    mutate(primary_category = factor(primary_category, levels = unique(primary_category[order(-avg_category_rating)])))  
+  # Using mutate to reorder categories
   
   # Create the plot using the selected color palette
   p <- ggplot(decade_ratings, aes(x = primary_category, y = avg_category_rating, fill = primary_category)) +
@@ -333,4 +333,5 @@ However, it is important to remember that since correlation does not equal causa
 
 We found that overall after the 1960's that games that are part of the American Civil WAr are alwasy in the top five. In fact the board games that are rated highly since the 1960's seem to all either be war related games or be related to a cultural trend. One example is in the 1980's the second highest rated category is space exploration with fits with the trend of science fiction that was emerging due to the moon landing 5 years prior. In the 1970's the best rated games are those related to the Vietnam War this could be related to how during the early 70's many Americans were beginning to hate being apart of the Vietnam War and these board games could be anti-Vietnam war related which would have connect to Americans. Also since the war ends in 1975 it means that it is still part of the mainstream giving people all sorts of stories and lessons to make board games from. 
 Also we found that the games with longer play times have the more correlation with the average rating of a game. This could be that since peope are playing the game long they are able to get a better experience with their friends and family leading to overall high ratings as when they think back they can think of many moments. Long board games also have the ability to be more complex as they have more time to implement more mechanics for people to experiment with. With more complexity it also leads to more replay ability as each time someone plays the game they can do it differently. Replay ability typically means that people can play it more times in one sitting without switching to another game. These are just some reason on why we think that there is a positive correlation between play time and average rating. 
+The board game industry has expanded since the 1960's with 2010 having so many different categories of board games people are sure to find a game to suit them.
 
