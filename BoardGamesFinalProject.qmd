@@ -216,6 +216,9 @@ board_games <- board_games%>%
 # Turn primary_charactor column into a factor
 primary_charactor_factor <- as.factor(board_games$primary_category)
 print(unique(primary_charactor_factor))
+
+# Cleaned data
+board_games
 ```
 
 # Data Visualization
