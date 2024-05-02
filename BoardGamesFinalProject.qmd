@@ -269,7 +269,8 @@ for (decade in unique_decades) {
 }
 
 ```
-
+From the bar graphs, we can see that there has been a significant increase in the types of games throughout the decades. Or at least the specificity of which we label the primary category of board games has increased. In the 1950s there were 21 primary game categories and in the 2010s there were 80 different primary game categories according to our `board_games` dataset. 
+In the 1950s the primary category with the highest average rating was `Sports`. In the 1960's it was `Nautical`. In the 1970s it was `Vietnam War`. In the 1980s it was `Game System`. In the 1990s it was `Renaissance`. In the 2000s it was `Medical`. Lastly, in the 2010s the primary category with the highest average rating was `American Indian Wars`. Each decade has a category of `NA` which tells us the average rating of the games that did not have a category given to them.
 
 
 
