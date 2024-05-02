@@ -278,15 +278,14 @@ In the 1950s the primary category with the highest average rating was `Sports`. 
 ## Research Question 2
 
 For the second research questions we plan to make three graphs that compares each variable with `average_rating` to see which has the greatest correlation with `average_rating`.
-The first step is to find the upper and lower outliers for `playing_time`, `users_rate`, and `max_players` using the 1st quartile, the 3rd quartile, and the IQR provided by the `summary()` function. This is to ensure that the outliers are filtered prior to the plot construction so they would not distort the graph and make correlation *appear* weaker because of their extreme values. 
+The first step is to find the upper and lower outliers for `playing_time`, `users_rate`, and `max_players` using the 1st quartile and the 3rd quartile provided by the `summary()` function. This is to ensure that the outliers are filtered prior to the plot construction so they would not distort the graph and make correlation *appear* weaker because of their extreme values. 
+The formula for the upper bound outlier is Q3 + 1.5*(Q3-Q1) and the lower bound outlier is Q1 - 1.5(Q3-Q1). 
 Each plot will also include a line of best fit which would demonstrate a more explicit and accurate correlation between the two variables. 
 
 # The First Scatterplot, `playing_time` vs `average_rating`
 ```{r}
-#First, identify outliers that may distort the graph. This will apply to all other visualizations for this question. 
-outlierhighplaytime <- 90+1.5*(90-30) #Upper boundary for outlier = Q3 + 1.5IQR
-outlierlowplaytime <- 30-1.5*(90-30)  #Lower boundary for outlier = Q1 - 1.5IQR
-#All information about Q3, Q1, and IQR are obtained for `summary(Boardgame)`.
+outlierhighplaytime <- 90+1.5*(90-30) 
+outlierlowplaytime <- 30-1.5*(90-30)  
 board_games |> 
   select(playing_time, average_rating) |> 
  filter(playing_time > outlierlowplaytime, playing_time < outlierhighplaytime) |>
