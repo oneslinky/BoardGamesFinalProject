@@ -284,44 +284,44 @@ Each plot will also include a line of best fit which would demonstrate a more ex
 
 # The First Scatterplot, `playing_time` vs `average_rating`
 ```{r}
-outlierhighplaytime <- 90+1.5*(90-30) 
-outlierlowplaytime <- 30-1.5*(90-30)  
+outlierhighplaytime <- 90+1.5*(90-30) #calculating the upper bound for outliers
+outlierlowplaytime <- 30-1.5*(90-30)  #calculating the lower bound for outliers
 board_games |> 
   select(playing_time, average_rating) |> 
- filter(playing_time > outlierlowplaytime, playing_time < outlierhighplaytime) |>
-ggplot(aes(x = average_rating, y = playing_time)) +  
-geom_point(color = "blue") +
+ filter(playing_time > outlierlowplaytime, playing_time < outlierhighplaytime) |> #graph only includes values that are not outliers
+ggplot(aes(x = average_rating, y = playing_time)) +  #creates x and y values for plot 
+geom_point(color = "blue") + #assign plot to color 
     geom_smooth(method = "gam", se = TRUE) +  # Add line of best fit
-labs (title = "Play Time and Average Rating", 
+labs (title = "Play Time and Average Rating", #gives plot human-readable labels 
       x = "Average Rating", 
-      y = "Play Time")
+      y = "Play Time") 
 ```
 
 #The Second Scatterplot, `users_rated` vs `average_rating`
 ```{r}
-outlierhighuser <- 518+1.5*(518-85)
+outlierhighuser <- 518+1.5*(518-85) #this and the following code calculates bounds for outliers 
 outlierlowuser <- 85-1.5*(518-85)
 board_games%>%
   select(average_rating, users_rated) |> 
-filter (users_rated > outlierlowuser, users_rated < outlierhighuser) |> 
-ggplot(aes(x = average_rating, y = users_rated)) + 
-geom_point(color = "red") +
+filter (users_rated > outlierlowuser, users_rated < outlierhighuser) |> #excludes outliers 
+ggplot(aes(x = average_rating, y = users_rated)) + #creates x and y value 
+geom_point(color = "red") + #assign color 
   geom_smooth(method = "gam", se = TRUE) +  # Add line of best fit
-  labs (title = "Number of Users Rated and Average Rating",
+  labs (title = "Number of Users Rated and Average Rating", #create labels 
       x = "Average Rating", 
       y = "Number of Users Rated")
 ```
 #The Third Scatterplot, `max_players` vs `average_rating`
 ```{r}
-outlierhighplayer <- 6 + 1.5*(6-4)
+outlierhighplayer <- 6 + 1.5*(6-4) #outlier bound calculations 
 outlierlowplayer <- 4-1.5*(6-4)
 board_games%>%
   select(average_rating, max_players) |> 
-  filter(!is.na(max_players), max_players > outlierlowplayer, max_players < outlierhighplayer) |> 
-ggplot(aes(x = average_rating, y = max_players)) + 
-geom_point(color = "yellow") + 
+  filter(!is.na(max_players), max_players > outlierlowplayer, max_players < outlierhighplayer) |> #exclude outliers 
+ggplot(aes(x = average_rating, y = max_players)) + #x and y values for plot 
+geom_point(color = "yellow") + #assign color 
   geom_smooth(method = "gam", se = TRUE) +  # Add line of best fit
- labs (title = "Maximum Number of Players and Average Rating", 
+ labs (title = "Maximum Number of Players and Average Rating", #adds label 
       x = "Average Rating", 
       y = "Maximum Players")
 ```
