@@ -278,6 +278,8 @@ In the 1950s the primary category with the highest average rating was `Sports`. 
 ## Research Question 2
 
 For the second research questions we plan to make three graphs that compares each variable with `average_rating` to see which has the greatest correlation with `average_rating`.
+The first step is to find the upper and lower outliers for `playing_time`, `users_rate`, and `max_players` using the 1st quartile, the 3rd quartile, and the IQR provided by the `summary()` function. This is to ensure that the outliers are filtered prior to the plot construction so they would not distort the graph and make correlation *appear* weaker because of their extreme values. 
+Each plot will also include a line of best fit which would demonstrate a more explicit and accurate correlation between the two variables. 
 
 # The First Scatterplot, `playing_time` vs `average_rating`
 ```{r}
