@@ -149,7 +149,7 @@ This is the data dictionary for this data set
 
 # Research Questions
 
-The research questions we intend to answer are **for each decade what primary game category had the highest user rating** and **between `average_playtime`, number of users rated, and max player which has the greatest correlation with average rating**. To answer the first question, we will assume that the first category listed in `category` is the primary game category. We will create a new variable called `primary_category` that stores the split category column. We use `lubridate` change `year_published` into datetime object with a default date being placed. Then we plan to group all the decades together to find the average rating for each category in each decade. Then make 7 bar charts for each decade that exists to see which games have the best rating. 
+The research questions we intend to answer are: **for each decade, what primary game category had the highest user rating** and **between `average_playtime`, number of users rated, and max player, which has the greatest correlation with average rating**. To answer the first question, we will assume that the first category listed in `category` is the primary game category. We will create a new variable called `primary_category` that stores the split category column. We use `as.Date()` to change `year_published` into a datetime object with a default date being placed. Then we plan to group all the decades together to find the average rating for each category in each decade. We'll make 7 bar charts for each existing decade in our dataset to see which games have the best rating. To answer the second question, 
 
 # Cleaning Methods
 
@@ -163,11 +163,12 @@ To answer the questions of our research, we need to perform the following cleani
 
 4.  Identify how many `NA` values are in each column
 
-5.  Split `category` data by commas to get primary category by/using str_split
+5.  Change the `year_published` variable to date and create a `decade_published` variable to store these datetime objects
 
-6.  Change `primary_category` variable from character to a factor
+6.  Split `category` data by commas to get primary category by using `str_split()`
 
-7.  Use `lubridate` to change `year` variable to a date
+7.  Change `primary_category` variable from a character to a factor
+
 
 # Data Cleaning
 
@@ -204,23 +205,24 @@ board_games$decade_published = c(as.Date(as.character(board_games_data_raw$year_
 # Make a new category to hold the primary category
 board_games$primary_category = c(board_games$category)
 
-# Under assumption that first category listed is the primary category
+# Under the assumption that the first category listed is the primary category
 board_games <- board_games%>%
   mutate(primary_category = str_split(category, ",") %>% 
            #use split to make a list for each column of all the categories
            map_chr(~ trimws(.x[1])))
           # iterate over each element of the list column (.x) and extract the first element ([1])
           #trimws is used to remove any white space
-# Turn primary_characor column into a factor
+
+# Turn primary_charactor column into a factor
 primary_charactor_factor <- as.factor(board_games$primary_category)
 print(unique(primary_charactor_factor))
 ```
 
 # Data Visualization
 
-## Research Question 1
+## Research Question 1: Bar Graphs of Primary Game Category and Average User Rating For Each Decade
 
-**for each decade what primary game category had the highest user rating**
+We'll first create a `decade` variable using our custom `get_decade` function and our `decade_published` variable. We take our `board_games` data and group by `decade` and `primary_category`. Within each of these groups we calculate the average category rating using `mean()`. We then order the resulting dataframe by `decade` in ascending order and then by `avg_category_rating` in descending order within each `decade` using `arrange()`. Next, we create a custom palette to apply to our bar graphs so we can differentiate between primary categories.
 
 ```{r fig.height = 10}
 # Function to extract decade from a date
@@ -234,7 +236,7 @@ get_decade <- function(date) {
 board_games$decade_published <- as.Date(board_games$decade_published)
 board_games$decade <- get_decade(board_games$decade_published)
 
-# Summarize ratings by decade_published and primary_category
+# Summarize ratings by `decade` and `primary_category`
 ratings_by_category <- board_games %>%
   group_by(decade, primary_category) %>%
   summarise(avg_category_rating = mean(average_rating, na.rm = TRUE), .groups = "drop") %>%
